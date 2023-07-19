@@ -39,12 +39,6 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   private products$ = this.http.get<Product[]>(this.GET_PRODUCTS_API).pipe(
-    map((products) =>
-      products.map((po) => {
-        po.images[0] = po.images[0].replace('https://picsum.photos', '');
-        return po;
-      })
-    ),
     catchError(this.handleError)
   );
 
@@ -61,14 +55,7 @@ export class ProductsService {
 
   productDetail = toSignal<Product>(this.productDetail$, {})
 
-  private categories$ = this.http.get<Category[]>(this.GET_CATEGORIES_API).pipe(
-    map((cats) =>
-      cats.map((cat) => {
-        // cat.image = cat.image.replace('https://picsum.photos', '');
-        return cat;
-      })
-    )
-  );
+  private categories$ = this.http.get<Category[]>(this.GET_CATEGORIES_API);
 
   categories = toSignal(this.categories$);
 

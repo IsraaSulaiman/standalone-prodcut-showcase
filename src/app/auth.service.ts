@@ -51,7 +51,9 @@ export class AuthService {
   // );
 
   userProfile$ = () => {
-    console.log('user profile')
+    if(!this.TK()) {
+      return of({} as User)
+    }
     return this.http
     .get<User>(this.PROFILE_API, {
       headers: {

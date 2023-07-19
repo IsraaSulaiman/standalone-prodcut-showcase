@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng run prerender",
+    "build": "npm run prerender",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "dev:ssr": "ng run standalone-prodcut-showcase:serve-ssr",

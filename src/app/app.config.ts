@@ -8,13 +8,13 @@ import {
 } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 
-import { routes } from './app.routes';
+import { routes } from './routes/app.routes';
 import {
   HttpClientModule,
   provideHttpClient,
   withInterceptors,
 } from '@angular/common/http';
-import  AppHttpInterceptor  from './http.interceptor';
+import  AppHttpInterceptor  from './interceptors/http.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

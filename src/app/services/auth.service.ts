@@ -6,9 +6,6 @@ import {
   filter,
   map,
   of,
-  share,
-  shareReplay,
-  skip,
   switchMap,
   tap,
 } from 'rxjs';
@@ -33,39 +30,29 @@ export class AuthService {
 
   isLoggedIn = signal(false);
 
-  // userProfile$ = toObservable(this.TK).pipe(
-  //   // skip(1),
-  //   switchMap(
-  //     (tk) => {
-  //       if(!tk){
-  //         return of(null);
-  //       }
-  //       console.log(tk, 'tk')
-  //       return this.http.get<User>(this.PROFILE_API, {
-  //         headers: {
-  //           Authorization: 'Bearer ' + tk,
-  //         },
-  //       });
-  //     },
-  //   ), tap((isLoggedIn) => this.isLoggedIn.set(!!isLoggedIn), shareReplay(1))
-  // );
+  userProfile$ = toObservable(this.TK).pipe(
+    switchMap(() => {
+      if (!this.TK()) {
+        return of({} as User);
+      }
+      console.log('get users');
+      return this.http.get<User>(this.PROFILE_API, {
+        headers: {
+          Authorization: 'Bearer ' + this.TK(),
+        },
+      });
+    }),
+    tap((user: any) => {
+      console.log('herrrrrrrrrrrrrrrrrr', user?.id );
+      if(user && user.id) {
+        this.isLoggedIn.set(true);
+      } else {
+        this.isLoggedIn.set(false);
 
-  userProfile$ = () => {
-    if(!this.TK()) {
-      return of({} as User)
-    }
-    return this.http
-    .get<User>(this.PROFILE_API, {
-      headers: {
-        Authorization: 'Bearer ' + this.TK(),
-      },
-    })
-    .pipe(tap((isLoggedIn) => {
-      console.log('herrrrrrrrrrrrrrrrrr')
-      this.isLoggedIn.set(!!isLoggedIn)
-    }
-    ), shareReplay(1));
-  }
+      }
+  }));
+
+  userProfile = toSignal(this.userProfile$);
 
   constructor(
     private http: HttpClient,
@@ -111,5 +98,4 @@ export class AuthService {
     return !!TK_COOKIE;
   }
 
-  verifyUser() {}
 }

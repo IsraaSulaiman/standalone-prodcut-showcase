@@ -2,7 +2,7 @@ import { Component, computed, effect, signal } from '@angular/core';
 import { FormsModule, NgModel } from '@angular/forms';
 import { tap } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',

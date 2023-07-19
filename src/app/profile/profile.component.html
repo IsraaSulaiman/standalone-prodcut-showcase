@@ -1,0 +1,11 @@
+<section>
+  <h2>Hi ({{ userProfile()?.name }})</h2>
+  <section>
+    <app-optimized-image width="400" height="400" [image]="image()">
+    </app-optimized-image>
+    <div>
+      <p>Email: <span class="bold">{{ userProfile()?.email }}</span></p>
+      <p>Role: <span class="bold">{{ userProfile()?.role }}</span></p>
+    </div>
+  </section>
+</section>

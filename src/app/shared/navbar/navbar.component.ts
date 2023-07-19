@@ -1,35 +1,34 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, WritableSignal, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../auth.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { JsonPipe, NgFor } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import {
   navLinksForNonRegistered,
   navLinksForRegistered,
 } from '../../constants/navLinks';
+import { of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, JsonPipe, NgFor, RouterLinkActive],
+  imports: [RouterLink, NgIf, JsonPipe, NgFor, RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
   auth = inject(AuthService);
   router = inject(Router);
-
-  userProfile = toSignal(this.auth.userProfile$());
+  
   isLoggedIn = this.auth.isLoggedIn;
 
-  navLinks = computed(() => {
-    console.log('computed')
-    if (this.isLoggedIn()) {
-      return navLinksForRegistered;
-    } else {
-      return navLinksForNonRegistered;
-    }
-  });
+  navLinks$ = toObservable(this.isLoggedIn).pipe(switchMap(val => {
+    return of(!val ? navLinksForNonRegistered : navLinksForRegistered)
+  }))
+
+  navLinks = toSignal(this.navLinks$, {initialValue: [] as any[]});
+
+  userProfile = this.auth.userProfile;
 
   handleNavigation(item: any){
     if(item.isLogout){
@@ -38,3 +37,7 @@ export class NavbarComponent {
     }
   }
 }
+function asObservable(isLoggedIn: WritableSignal<boolean>) {
+  throw new Error('Function not implemented.');
+}
+

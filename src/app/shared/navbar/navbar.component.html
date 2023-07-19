@@ -1,6 +1,7 @@
 <header class="header">
   <div>
-    <a routerLink="/">Logo</a>
+    <a *ngIf="!isLoggedIn()" routerLink="/"><h1>Logo</h1></a>
+    <h2 *ngIf="isLoggedIn()">Welcome {{userProfile()?.name | json}}</h2>
   </div>
   <nav>
     <a
@@ -13,4 +14,5 @@
       {{ item?.text }}</a
     >
   </nav>
+  
 </header>

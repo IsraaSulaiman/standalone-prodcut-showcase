@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 import { Observable, map } from 'rxjs';
 
 export const authGuard: CanActivateFn = (
@@ -11,7 +11,7 @@ export const authGuard: CanActivateFn = (
   const auth = inject(AuthService);
 
   if (auth.isAuthenticated) {
-    return auth.userProfile$().pipe(map(data => {
+    return auth.userProfile$.pipe(map(data => {
       if (data && data?.id) {
         console.log(data, 'yes data');
         return true;

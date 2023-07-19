@@ -1,74 +1,33 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
+import {SsrCookieService} from 'ngx-cookie-service-ssr';
+import {Request} from 'express';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CookieManagementService {
-  cookies: { [key: string]: string | null } = {};
   constructor(
-    @Optional() @Inject(Request) private req: any,
-    @Optional() @Inject(Response) private res: any,
-    private cookie: CookieService
-  ) {
-    if (this.req !== null) {
-      this.cookies = this.req.cookies;
-    } else if (document) {
-      this.cookies = this.cookie.getAll();
-    }
+    @Inject(PLATFORM_ID) private platformId: any,
+    @Optional()
+    @Inject(REQUEST) private request: Request,
+    private cookie: SsrCookieService
+  ) {  
   }
 
   getItem(name: string): string | null {
-    const cookies = this.cookies ? this.cookies : this._getPairs();
-    if (cookies) {
-      if (name && typeof this.cookies[name] !== 'undefined') {
-        return this.cookies[name];
-      }
-    }
-    return null;
+      return this.cookie.get(name);
   }
 
-  setItem(name: string, value: string, expiry?: Date | string): boolean {
-    if (!name) {
-      return false;
-    }
-    if (this.req === null) {
-      this.cookie.set(name, value);
-    } else {
-      this.cookies[name] = value;
-      this.res.cookie(name, value);
-    }
-    return true;
+  setItem(name: string, value: string, expiry?: Date | string) {
+    this.cookie.set(name, value);
   }
 
-  removeItem(name: string): boolean {
-    if (this.req !== null || !name) {
-      return false;
-    }
-    if (this.cookies) {
-      this.cookies[name] = null;
-    }
-    if (this.req === null) {
-      this.cookie.delete(name);
-    } else {
-      const expiry = new Date('Thu, 01 Jan 1970 00:00:00 UTC');
-      this.res.cookie(name, null, { expires: expiry });
-    }
-    return true;
+  removeItem(name: string) {
+     this.cookie.delete(name);
   }
 
-  _getPairs(): { [key: string]: string | null } {
-    if (this.req === null) {
-      return this.cookie.getAll();
-    } else {
-      return this.cookies;
-    }
-  }
-
-  deleteAll(){
-    if(document) {
-      this.cookie.deleteAll()
-    }
-    this.cookies = {};
+  deleteAll() {
+    this.cookie.deleteAll();
   }
 }

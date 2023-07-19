@@ -23,4 +23,9 @@ export class OptimizedImageComponent {
     },
   })
   image!: { src: string; name: string };
+
+  loadDefaultImage(image: any){
+    console.log('hhh')
+  }
 }
+

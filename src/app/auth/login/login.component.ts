@@ -20,15 +20,18 @@ export class LoginComponent {
   isLoggedIn = this.auth.isLoggedIn;
 
   constructor(private auth: AuthService, private router: Router) {
-    effect(() => {
-      if (this.isLoggedIn()) {
-        this.router.navigate(['/products']);
-      }
-    });
+    // effect(() => {
+    //   console.log('logged', this.isLoggedIn())
+    //   if (this.isLoggedIn()) {
+    //     this.router.navigate(['/products']);
+    //   }
+    // });
   }
 
   onSubmit() {
     console.log(this.login);
-    this.auth.login(this.login).subscribe();
+    this.auth.login(this.login).subscribe(data => {
+      this.router.navigate(['/products'])
+    });
   }
 }

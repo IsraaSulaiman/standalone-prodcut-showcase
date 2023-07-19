@@ -9,17 +9,22 @@ import {
 import { provideClientHydration } from '@angular/platform-browser';
 
 import { routes } from './app.routes';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  HttpClientModule,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
+import  AppHttpInterceptor  from './http.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       routes,
       withComponentInputBinding(),
-      withPreloading(PreloadAllModules),
+      withPreloading(PreloadAllModules)
       // withDebugTracing()
     ),
-    importProvidersFrom(HttpClientModule),
+    provideHttpClient(withInterceptors([AppHttpInterceptor])),
     provideClientHydration(),
   ],
 };

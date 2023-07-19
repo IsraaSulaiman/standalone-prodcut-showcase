@@ -2,14 +2,23 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, signal } from '@angular/core';
 import { CookieManagementService } from './cookie-management.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, of, share, shareReplay, switchMap, tap } from 'rxjs';
+import {
+  filter,
+  map,
+  of,
+  share,
+  shareReplay,
+  skip,
+  switchMap,
+  tap,
+} from 'rxjs';
 
 interface User {
-  id: string,
-  email: string,
-  password: string,
-  name: string,
-  role: string,
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  role: string;
   avatar: string;
 }
 
@@ -24,21 +33,37 @@ export class AuthService {
 
   isLoggedIn = signal(false);
 
-  userProfile$ = toObservable(this.TK).pipe(
-    switchMap(
-      (tk) => {
-        console.log('tk', tk)
-        if(!tk){
-          return of(null)
-        }
-        return this.http.get<User>(this.PROFILE_API, {
-          headers: {
-            Authorization: 'Bearer ' + tk,
-          },
-        });
+  // userProfile$ = toObservable(this.TK).pipe(
+  //   // skip(1),
+  //   switchMap(
+  //     (tk) => {
+  //       if(!tk){
+  //         return of(null);
+  //       }
+  //       console.log(tk, 'tk')
+  //       return this.http.get<User>(this.PROFILE_API, {
+  //         headers: {
+  //           Authorization: 'Bearer ' + tk,
+  //         },
+  //       });
+  //     },
+  //   ), tap((isLoggedIn) => this.isLoggedIn.set(!!isLoggedIn), shareReplay(1))
+  // );
+
+  userProfile$ = () => {
+    console.log('user profile')
+    return this.http
+    .get<User>(this.PROFILE_API, {
+      headers: {
+        Authorization: 'Bearer ' + this.TK(),
       },
-    ), tap((isLoggedIn) => this.isLoggedIn.set(!!isLoggedIn), shareReplay(1))
-  );
+    })
+    .pipe(tap((isLoggedIn) => {
+      console.log('herrrrrrrrrrrrrrrrrr')
+      this.isLoggedIn.set(!!isLoggedIn)
+    }
+    ), shareReplay(1));
+  }
 
   constructor(
     private http: HttpClient,
@@ -84,6 +109,5 @@ export class AuthService {
     return !!TK_COOKIE;
   }
 
-  verifyUser() {
-  }
+  verifyUser() {}
 }

@@ -17,15 +17,7 @@ export class LoginComponent {
     password: '',
   };
 
-  isLoggedIn = this.auth.isLoggedIn;
-
   constructor(private auth: AuthService, private router: Router) {
-    // effect(() => {
-    //   console.log('logged', this.isLoggedIn())
-    //   if (this.isLoggedIn()) {
-    //     this.router.navigate(['/products']);
-    //   }
-    // });
   }
 
   onSubmit() {

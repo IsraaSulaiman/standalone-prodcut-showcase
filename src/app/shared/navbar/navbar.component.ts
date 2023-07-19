@@ -1,4 +1,4 @@
-import { Component, WritableSignal, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, WritableSignal, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -15,6 +15,7 @@ import { of, switchMap } from 'rxjs';
   imports: [RouterLink, NgIf, JsonPipe, NgFor, RouterLinkActive],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
   auth = inject(AuthService);

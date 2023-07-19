@@ -1,4 +1,4 @@
-import { Component, Input, computed } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, computed } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { ProductsService } from '../products.service';
 import { ProductItemComponent } from '../product-item/product-item.component';
@@ -8,7 +8,8 @@ import { ProductItemComponent } from '../product-item/product-item.component';
   standalone: true,
   imports: [ProductItemComponent, NgIf],
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  styleUrls: ['./product-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductDetailComponent {
   @Input() set id(value: string){

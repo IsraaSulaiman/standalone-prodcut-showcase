@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import {  NgIf, NgOptimizedImage } from '@angular/common';
 
 
@@ -8,6 +8,7 @@ import {  NgIf, NgOptimizedImage } from '@angular/common';
   imports: [NgOptimizedImage, NgIf],
   templateUrl: './optimized-image.component.html',
   styleUrls: ['./optimized-image.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OptimizedImageComponent {
   @Input() width = '200';
@@ -16,7 +17,7 @@ export class OptimizedImageComponent {
   @Input({
     transform: (value: { image: string; name: string }) => {
       if (value) {
-        const src = value.image.replace('https://picsum.photos', '')
+        const src = value.image?.replace('https://picsum.photos', '')
         return { src: src, name: value.name };
       }
       return value;

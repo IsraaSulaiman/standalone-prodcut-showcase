@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { JsonPipe, NgIf } from '@angular/common';
 import { OptimizedImageComponent } from '../shared/optimized-image/optimized-image.component';
 import { AuthService } from '../services/auth.service';
@@ -8,7 +8,8 @@ import { AuthService } from '../services/auth.service';
   standalone: true,
   imports: [NgIf, OptimizedImageComponent, JsonPipe],
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileComponent {
   auth = inject(AuthService);

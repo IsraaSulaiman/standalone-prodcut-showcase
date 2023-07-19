@@ -1,4 +1,4 @@
-import { Component, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { Product, TransformedProduct } from '../products.service';
 import { RouterLink } from '@angular/router';
@@ -10,6 +10,7 @@ import { OptimizedImageComponent } from 'src/app/shared/optimized-image/optimize
   imports: [OptimizedImageComponent, NgIf, RouterLink],
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductItemComponent {
   @Input({

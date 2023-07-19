@@ -13,15 +13,15 @@ export const authGuard: CanActivateFn = (
   if (auth.isAuthenticated) {
     return auth.userProfile$.pipe(map(data => {
       if (data && data?.id) {
-        console.log(data, 'yes data');
+        // console.log(data, 'yes data');
         return true;
       } else {
-        console.log('no data');
+        // console.log('no data');
         return false;
       }
     }))
   }
-  console.log('login');
+  // console.log('login');
   router.navigate(['/login']);
   return false;
 };

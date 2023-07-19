@@ -36,11 +36,7 @@ export class AuthService {
         return of({} as User);
       }
       // console.log('get users');
-      return this.http.get<User>(this.PROFILE_API, {
-        headers: {
-          Authorization: 'Bearer ' + this.TK(),
-        },
-      });
+      return this.http.get<User>(this.PROFILE_API);
     }),
     tap((user: any) => {
       // console.log('herrrrrrrrrrrrrrrrrr', user?.id );

@@ -4,14 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build-dev": "ng build",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "dev:ssr": "ng run standalone-prodcut-showcase:serve-ssr",
     "serve:ssr": "node dist/standalone-prodcut-showcase/server/main.js",
     "build:ssr": "ng build && ng run standalone-prodcut-showcase:server",
     "prerender": "ng run standalone-prodcut-showcase:prerender",
-    "vercel-build": "npm run build:ssr"
   },
   "private": true,
   "dependencies": {

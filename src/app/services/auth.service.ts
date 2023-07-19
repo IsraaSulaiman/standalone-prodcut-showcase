@@ -35,7 +35,7 @@ export class AuthService {
       if (!this.TK()) {
         return of({} as User);
       }
-      console.log('get users');
+      // console.log('get users');
       return this.http.get<User>(this.PROFILE_API, {
         headers: {
           Authorization: 'Bearer ' + this.TK(),
@@ -43,7 +43,7 @@ export class AuthService {
       });
     }),
     tap((user: any) => {
-      console.log('herrrrrrrrrrrrrrrrrr', user?.id );
+      // console.log('herrrrrrrrrrrrrrrrrr', user?.id );
       if(user && user.id) {
         this.isLoggedIn.set(true);
       } else {
@@ -81,7 +81,7 @@ export class AuthService {
   }
 
   setCookies() {
-    console.log('set cookies', this.TK());
+    // console.log('set cookies', this.TK());
     this.cookieManagement.setItem('TK', this.TK());
     this.cookieManagement.setItem('REFRESH_TK', this.REFRESH_TK);
   }
@@ -91,7 +91,7 @@ export class AuthService {
       return true;
     }
     const TK_COOKIE = this.cookieManagement.getItem('TK');
-    console.log(TK_COOKIE, 'tk cookie');
+    // console.log(TK_COOKIE, 'tk cookie');
     if (TK_COOKIE) {
       this.TK.update(() => TK_COOKIE);
     }

@@ -29,7 +29,6 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    console.log(this.login);
     this.auth.login(this.login).subscribe(data => {
       this.router.navigate(['/products'])
     });

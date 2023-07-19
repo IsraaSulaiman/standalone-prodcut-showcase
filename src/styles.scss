@@ -1,0 +1,45 @@
+/* You can add global styles to this file, and also import other style files */
+
+*,
+html {
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+  background-color: #303236;
+  color: #f2f2f2;
+  max-width: 100vw;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #f2f2f2;
+}
+
+main {
+  margin-bottom: auto;
+  padding: 2rem 0;
+}
+
+.tt-btn {
+  padding: 1rem 2rem;
+  min-width: 100px;
+  height: 4rem;
+  font-size: 1rem;
+  &.primary {
+    background-color: #00b5ff;
+    color: #f1f3f5;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+.centered {
+  text-align: center;
+}

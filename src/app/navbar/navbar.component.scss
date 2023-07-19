@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4.5rem;
+  border-bottom: 1px solid #fefefe;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+
+  nav {
+    display: flex;
+    gap: 1.5rem;
+    a {
+      color: #f1f3f5;
+      &:hover,
+      &.active {
+        color: #00b5ff;
+      }
+
+      &.active {
+        font-weight: bold;
+      }
+    }
+  }
+}

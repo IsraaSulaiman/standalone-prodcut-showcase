@@ -1,0 +1,11 @@
+<section class="category-list">
+  <ng-container *ngIf="categories()?.length; else loader">
+    <app-category
+      *ngFor="let cateogry of categories()"
+      [category]="cateogry"
+    ></app-category>
+  </ng-container>
+  <ng-template #loader>
+    <h3>Loading....</h3>
+  </ng-template>
+</section>

@@ -1,0 +1,11 @@
+<section class="product-list">
+  <ng-container *ngIf="products()?.length; else loader">
+    <app-product-item
+      [product]="product"
+      *ngFor="let product of products()"
+    ></app-product-item>
+  </ng-container>
+  <ng-template #loader>
+    <h3>Loading....</h3>
+  </ng-template>
+</section>

@@ -1,0 +1,16 @@
+<header class="header">
+  <div>
+    <a routerLink="/">Logo</a>
+  </div>
+  <nav>
+    <a
+      (click)="handleNavigation(item)"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLinkActive="active"
+      [routerLink]="item.link"
+      *ngFor="let item of navLinks()"
+    >
+      {{ item?.text }}</a
+    >
+  </nav>
+</header>

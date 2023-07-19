@@ -1,0 +1,9 @@
+<h2>
+    Welcome to product {{productId()}} ( {{productDetails()?.title}} )
+</h2>
+
+<app-product-item *ngIf="productDetails()" [product]="productDetails()">
+
+</app-product-item>
+
+

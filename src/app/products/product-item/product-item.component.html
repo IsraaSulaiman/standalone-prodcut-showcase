@@ -1,0 +1,15 @@
+<section *ngIf="product">
+  <a [routerLink]="['/products/', product.id]">
+    <app-optimized-image
+      [image]="product"
+      loading="lazy"
+      height="400"
+      width="400"
+    ></app-optimized-image>
+  </a>
+  <div>
+    <h3>{{ product.name }}</h3>
+    <p>{{ product.price }}</p>
+    <button class="tt-btn primary" (click)="addToCart()">Add to card</button>
+  </div>
+</section>

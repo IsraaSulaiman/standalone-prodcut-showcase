@@ -1,0 +1,29 @@
+<section>
+  <h2 class="centered">Login to your account to start shopping</h2>
+  <form class="login-form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div class="form-group">
+      <label class="form-label">Enter your email</label>
+      <input
+        placeholder="Your email"
+        name="email"
+        id="user-email"
+        [(ngModel)]="login.email"
+        class="form-input"
+      />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Enter your password</label>
+      <input
+        placeholder="Your password"
+        name="password"
+        id="user-password"
+        [(ngModel)]="login.password"
+        type="password"
+        class="form-input"
+      />
+    </div>
+    <div class="form-group">
+      <button type="submit" class="tt-btn primary">Login</button>
+    </div>
+  </form>
+</section>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, computed } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
-import { ProductsService } from '../products.service';
+import { ProductsService } from '../../services/products.service';
 import { ProductItemComponent } from '../product-item/product-item.component';
 
 @Component({

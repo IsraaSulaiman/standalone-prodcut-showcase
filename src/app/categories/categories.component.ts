@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
-import { ProductsService } from '../products/products.service';
+import { ProductsService } from '../services/products.service';
 import { CategoryComponent } from './category/category.component';
 import { NgFor, NgIf } from '@angular/common';
 

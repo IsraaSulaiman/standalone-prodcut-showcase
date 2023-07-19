@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { Product, TransformedProduct } from '../products.service';
+import { Product, TransformedProduct } from '../../services/products.service';
 import { RouterLink } from '@angular/router';
 import { OptimizedImageComponent } from 'src/app/shared/optimized-image/optimized-image.component';
 

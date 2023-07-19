@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { Category } from 'src/app/products/products.service';
 import { OptimizedImageComponent } from 'src/app/shared/optimized-image/optimized-image.component';
+import { Category } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-category',

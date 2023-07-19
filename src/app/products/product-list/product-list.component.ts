@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
 import { CommonModule, JsonPipe, NgFor, NgIf } from '@angular/common';
-import { ProductsService } from '../products.service';
+import { ProductsService } from '../../services/products.service';
 import { ProductItemComponent } from '../product-item/product-item.component';
 
 @Component({

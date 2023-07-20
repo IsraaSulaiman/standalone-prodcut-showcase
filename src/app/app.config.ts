@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, ErrorHandler, importProvidersFrom } from '@angular/core';
 import {
   PreloadAllModules,
   provideRouter,
@@ -15,8 +15,11 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import  AppHttpInterceptor  from './interceptors/http.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { GlobalErrorHandlerService } from './services/global-error-handler.service';
 
 export const appConfig: ApplicationConfig = {
+
   providers: [
     provideRouter(
       routes,
@@ -26,5 +29,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withInterceptors([AppHttpInterceptor])),
     provideClientHydration(),
+    { provide: ErrorHandler, useClass: GlobalErrorHandlerService },
+    MatSnackBarModule,
   ],
 };

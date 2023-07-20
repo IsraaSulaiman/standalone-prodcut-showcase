@@ -3,11 +3,12 @@ import { provideImgixLoader } from '@angular/common';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { SeoService } from './services/seo.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LayoutComponent, RouterOutlet],
+  imports: [LayoutComponent, RouterOutlet,MatSnackBarModule],
   providers: [provideImgixLoader('https://picsum.photos/')],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

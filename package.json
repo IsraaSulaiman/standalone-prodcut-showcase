@@ -9,8 +9,8 @@
     "test": "ng test",
     "dev:ssr": "ng run standalone-prodcut-showcase:serve-ssr",
     "serve:ssr": "node dist/standalone-prodcut-showcase/server/main.js",
-    "build:ssr": "ng build && ng run standalone-prodcut-showcase:server",
-    "prerender": "ng run standalone-prodcut-showcase:prerender"
+    "build:ssr": "ng build && gzipper compress ./dist ng run standalone-prodcut-showcase:server",
+    "prerender": "ng run standalone-prodcut-showcase:prerender && gzipper compress ./dist"
   },
   "private": true,
   "dependencies": {
@@ -25,6 +25,7 @@
     "@angular/router": "^16.1.0",
     "@nguniversal/express-engine": "^16.1.1",
     "express": "^4.15.2",
+    "gzipper": "^7.2.0",
     "ngx-cookie-service-ssr": "^16.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

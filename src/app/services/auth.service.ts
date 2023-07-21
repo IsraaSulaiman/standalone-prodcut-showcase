@@ -6,6 +6,7 @@ import {
   filter,
   map,
   of,
+  shareReplay,
   switchMap,
   tap,
 } from 'rxjs';
@@ -32,21 +33,21 @@ export class AuthService {
 
   userProfile$ = toObservable(this.TK).pipe(
     switchMap(() => {
+      console.log('user profile', !!this.TK())
       if (!this.TK()) {
         return of({} as User);
       }
-      // console.log('get users');
-      return this.http.get<User>(this.PROFILE_API);
+      return this.http.get<User>(this.PROFILE_API).pipe(tap(() => console.log('get req')));
     }),
     tap((user: any) => {
-      // console.log('herrrrrrrrrrrrrrrrrr', user?.id );
+      console.log('herrrrrrrrrrrrrrrrrr', user?.id );
       if(user && user.id) {
         this.isLoggedIn.set(true);
       } else {
         this.isLoggedIn.set(false);
 
       }
-  }));
+  }), shareReplay(1));
 
   userProfile = toSignal(this.userProfile$);
 
@@ -89,6 +90,7 @@ export class AuthService {
     const TK_COOKIE = this.cookieManagement.getItem('TK');
     // console.log(TK_COOKIE, 'tk cookie');
     if (TK_COOKIE) {
+      console.log('update tk')
       this.TK.update(() => TK_COOKIE);
     }
     return !!TK_COOKIE;

@@ -49,13 +49,13 @@ export class ProductsService {
   private productDetail$ = toObservable(this.selectedProductId).pipe(
     filter(Boolean),
     switchMap((productId) => {
-      return this.http.get<Product>(this.GET_PRODUCT_DETAIL_API + productId);
+      return this.http.get<Product>(this.GET_PRODUCT_DETAIL_API + productId).pipe(tap(()=> {console.log('get product details')}));
     }),
   );
 
   productDetail = toSignal<Product>(this.productDetail$, {})
 
-  private categories$ = this.http.get<Category[]>(this.GET_CATEGORIES_API);
+  private categories$ = this.http.get<Category[]>(this.GET_CATEGORIES_API).pipe(tap(()=> {console.log('get categories')}));
 
   categories = toSignal(this.categories$);
 

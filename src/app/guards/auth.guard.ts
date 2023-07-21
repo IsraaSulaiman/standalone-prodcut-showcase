@@ -11,7 +11,7 @@ export const authGuard: CanActivateFn = (
   const auth = inject(AuthService);
 
   if (auth.isAuthenticated) {
-    return auth.userProfile$.pipe(map(data => {
+    return auth.getUserData().pipe(map(data => {
       if (data && data?.id) {
         // console.log(data, 'yes data');
         return true;

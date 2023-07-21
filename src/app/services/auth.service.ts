@@ -26,27 +26,22 @@ interface User {
 export class AuthService {
   private LOGIN_API = 'https://api.escuelajs.co/api/v1/auth/login';
   private PROFILE_API = 'https://api.escuelajs.co/api/v1/auth/profile';
-  private TK = signal('');
-  private REFRESH_TK = '';
 
   isLoggedIn = signal(false);
 
-  userProfile$ = toObservable(this.TK).pipe(
+  getUserData = () => this.http.get<User>(this.PROFILE_API).pipe(tap(() => console.log('get req')));
+
+  userProfile$ = toObservable(this.isLoggedIn).pipe(
     switchMap(() => {
-      console.log('user profile', !!this.TK())
-      if (!this.TK()) {
+      if (!this.isLoggedIn()) {
+        // console.log('no logged in')
         return of({} as User);
       }
-      return this.http.get<User>(this.PROFILE_API).pipe(tap(() => console.log('get req')));
+      // console.log('logged in')
+      return this.getUserData();
     }),
     tap((user: any) => {
-      console.log('herrrrrrrrrrrrrrrrrr', user?.id );
-      if(user && user.id) {
-        this.isLoggedIn.set(true);
-      } else {
-        this.isLoggedIn.set(false);
-
-      }
+      // console.log('herrrrrrrrrrrrrrrrrr', user?.id );
   }), shareReplay(1));
 
   userProfile = toSignal(this.userProfile$);
@@ -64,34 +59,28 @@ export class AuthService {
       )
       .pipe(
         map((data) => {
-          this.TK.set(data.access_token);
-          this.REFRESH_TK = data.refresh_token;
-          this.setCookies();
+          this.isLoggedIn.set(true);
+          this.setCookies(data);
         })
       );
   }
 
   logout() {
     this.cookieManagement.deleteAll();
-    this.TK.set('');
-    this.REFRESH_TK = '';
   }
 
-  setCookies() {
-    // console.log('set cookies', this.TK());
-    this.cookieManagement.setItem('TK', this.TK());
-    this.cookieManagement.setItem('REFRESH_TK', this.REFRESH_TK);
+  setCookies(data: {
+    access_token: string,
+    refresh_token: string
+  }) {
+    this.cookieManagement.setItem('TK', data.access_token);
+    this.cookieManagement.setItem('REFRESH_TK', data.refresh_token);
   }
 
   get isAuthenticated() {
-    if (this.TK()) {
-      return true;
-    }
     const TK_COOKIE = this.cookieManagement.getItem('TK');
-    // console.log(TK_COOKIE, 'tk cookie');
-    if (TK_COOKIE) {
-      console.log('update tk')
-      this.TK.update(() => TK_COOKIE);
+    if(TK_COOKIE) {
+      this.isLoggedIn.set(true);   
     }
     return !!TK_COOKIE;
   }

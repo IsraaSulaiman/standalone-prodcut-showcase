@@ -9,7 +9,7 @@
     "test": "ng test",
     "dev:ssr": "ng run standalone-prodcut-showcase:serve-ssr",
     "serve:ssr": "node dist/standalone-prodcut-showcase/server/main.js",
-    "build:ssr": "ng build ng run standalone-prodcut-showcase:server",
+    "build:ssr": "ng build && ng run standalone-prodcut-showcase:server",
     "prerender": "ng run standalone-prodcut-showcase:prerender"
   },
   "private": true,
@@ -29,6 +29,7 @@
     "ngx-cookie-service-ssr": "^16.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "webpack-bundle-analyzer": "^4.9.0",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

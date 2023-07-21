@@ -13,8 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
   login: { email: string; password: string } = {
-    email: '',
-    password: '',
+    email: 'john@mail.com',
+    password: 'changeme',
   };
 
   constructor(private auth: AuthService, private router: Router) {
